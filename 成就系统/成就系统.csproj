@@ -1,0 +1,99 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows10.0.18362.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+    <ApplicationIcon>Resources\成就图标.ico</ApplicationIcon>
+    <Platforms>AnyCPU;x64</Platforms>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<None Remove="models\dlib_face_recognition_resnet_model_v1.dat" />
+		<None Remove="models\mmod_human_face_detector.dat" />
+		<None Remove="models\shape_predictor_5_face_landmarks.dat" />
+		<None Remove="models\shape_predictor_68_face_landmarks.dat" />
+		<None Remove="Resources\AchievementTemplate.xlsx" />
+		<None Remove="Resources\AsImages\DefaultImage.png" />
+	</ItemGroup>
+
+  <ItemGroup>
+    <Content Include="models\dlib_face_recognition_resnet_model_v1.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="models\mmod_human_face_detector.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="models\shape_predictor_5_face_landmarks.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="models\shape_predictor_68_face_landmarks.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Resources\成就图标.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="DlibDotNet" Version="19.21.0.20220724" />
+    <PackageReference Include="EPPlus" Version="8.4.2" />
+    <PackageReference Include="FaceRecognitionDotNet" Version="1.3.0.7" />
+    <PackageReference Include="iNKORE.UI.WPF.Modern" Version="0.10.2.1" />
+    <PackageReference Include="MySql.Data" Version="9.6.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.5-beta1" />
+    <PackageReference Include="PDFsharp" Version="6.2.4" />
+    <PackageReference Include="System.Drawing.Common" Version="11.0.0-preview.1.26104.118" />
+  </ItemGroup>
+
+  
+
+  <ItemGroup>
+    <None Update="Resources\AsImages\强风吹拂.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\Avatar.jpg">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory></CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\left.jpg">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </None>
+    <None Update="Resources\成就图标.ico">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Update="UI\Login\LoginWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ApplicationDefinition Include="Core\App.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Libs\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Resources\AchievementTemplate.xlsx" />
+    <Resource Include="Resources\AsImages\DefaultImage.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\背景.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="C:\Users\T-S\.nuget\packages\facerecognitiondotnet\1.3.0.7\build\..\runtimes\win-x64\native\DlibDotNetNativeDnnAgeClassification.dll" Link="Libs\DlibDotNetNativeDnnAgeClassification.dll" />
+    <Content Update="C:\Users\T-S\.nuget\packages\facerecognitiondotnet\1.3.0.7\build\..\runtimes\win-x64\native\DlibDotNetNativeDnnGenderClassification.dll" Link="Libs\DlibDotNetNativeDnnGenderClassification.dll" />
+  </ItemGroup>
+
+</Project>

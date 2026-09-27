@@ -1,0 +1,64 @@
+<Page x:Class="成就系统.UI.Main.AboutPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:成就系统.UI.Main"
+      xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="777" d:DesignWidth="999"
+      Title="AboutPage" Background="Transparent">
+
+    <Grid>
+        <!-- 主内容区域 -->
+        <ui:ScrollViewerEx VerticalScrollBarVisibility="Auto" Padding="20">
+            <ikw:SimpleStackPanel>
+                <!-- 标题区域 -->
+                <ikw:SimpleStackPanel Margin="0,0,0,30">
+                    <TextBlock Text="关于" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextForeground}"/>
+                    <TextBlock Text="成就系统的由来" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,8,0,0"/>
+
+                </ikw:SimpleStackPanel>
+
+                <!-- 一些想法 -->
+                <ikw:SimpleStackPanel Margin="0,0,0,25">
+                    <TextBlock Text="成就系统" Style="{StaticResource SectionTitleStyle}"/>
+                    <Border  Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="成就系统的前世今生！"  Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                            你好，当你看到这句话的时候，那想必你与它缘分不浅。之前我一直在做一些事，
+                                虽然可能是微不足道的，但我想记录下来，时不时可以供自己欣赏与思考，同时也可分享于他人，于是便诞生了它(AS)。
+                            </TextBlock>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                备注：AS首次诞生于2023年，采用WinForm + C#构建，为最开始的1.0版本。
+                                当前系统采用WPF + C# 重构，大幅度进行了优化并新增了许多功能，为2.0版本。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+
+                </ikw:SimpleStackPanel>
+                
+                <!-- 底部联系信息 -->
+                <Border Background="#80FFFFFF" CornerRadius="8" Padding="15" Margin="0, 20" VerticalAlignment="Bottom">
+                    <ikw:SimpleStackPanel>
+                        <TextBlock Text="需要更多帮助？" 
+                                   FontSize="16" 
+                                   FontWeight="SemiBold"
+                                   Foreground="#2B2D42"
+                                   Margin="0,0,0,8"/>
+                        <TextBlock Text="联系邮箱: 2xxxxx@qq.com" 
+                                   Style="{StaticResource AnswerStyle}"/>
+                        <TextBlock Text="成就系统2.0 © 2026 匿名@" HorizontalAlignment="Center"
+                                   Style="{StaticResource AnswerStyle}"/>
+                    </ikw:SimpleStackPanel>
+                </Border>
+
+            </ikw:SimpleStackPanel>
+        </ui:ScrollViewerEx>
+
+    </Grid>
+</Page>

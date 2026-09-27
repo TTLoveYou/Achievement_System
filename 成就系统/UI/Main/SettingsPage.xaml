@@ -1,0 +1,375 @@
+<Page x:Class="成就系统.UI.Main.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:成就系统.UI.Main"
+      xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      
+      mc:Ignorable="d" 
+      Title="SettingsPage"
+      d:DesignHeight="777" d:DesignWidth="999"
+      Background="Transparent">
+
+    <ui:ScrollViewerEx>
+        <ikw:SimpleStackPanel Margin="20">
+            <!-- 页面标题 -->
+            <ikw:SimpleStackPanel Margin="0,0,0,30">
+                <TextBlock Text="设置" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextForeground}"/>
+                <TextBlock Text="自定义成就系统的外观和行为" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,5,0,0"/>
+            </ikw:SimpleStackPanel>
+
+            <!-- 主题设置区域 -->
+            <ikw:SimpleStackPanel Margin="0,0,0,30">
+                <TextBlock Text="主题设置" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                    <ikw:SimpleStackPanel>
+                        <TextBlock Text="选择应用主题" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        
+                        <!-- 主题选项 - 横排显示 -->
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,10">
+                            <!-- 亮色主题选项 -->
+                            <Border x:Name="LightThemeOption" Width="150" Height="120" BorderThickness="2" BorderBrush="Transparent" CornerRadius="8" Cursor="Hand"
+                                    MouseLeftButtonUp="ThemeOption_Click">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="#F8F9FA"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=LightThemeRadio}" Value="True">
+                                                <Setter Property="BorderBrush" Value="#2563EB"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="#2563EB" BlurRadius="10" Opacity="0.3"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Opacity" Value="0.9"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect BlurRadius="8" Opacity="0.2"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <ikw:SimpleStackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                                    <RadioButton x:Name="LightThemeRadio" GroupName="Theme" IsChecked="True" Visibility="Collapsed" Checked="ThemeRadio_Checked"/>
+                                    <TextBlock Text="亮色" FontSize="14" FontWeight="Medium" Foreground="#1E1E1E" HorizontalAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                        <Border Width="20" Height="20" Background="#FFFFFF" CornerRadius="4" BorderBrush="#E0E0E0" BorderThickness="1"/>
+                                        <Border Width="20" Height="20" Background="#F8F9FA" CornerRadius="4" BorderBrush="#E9ECEF" BorderThickness="1"/>
+                                        <Border Width="20" Height="20" Background="#E9ECEF" CornerRadius="4" BorderBrush="#DEE2E6" BorderThickness="1"/>
+                                    </StackPanel>
+                                </ikw:SimpleStackPanel>
+                            </Border>
+                            
+                            <!-- 暗色主题选项 -->
+                            <Border x:Name="DarkThemeOption" Width="150" Height="120" BorderThickness="2" BorderBrush="Transparent" CornerRadius="8" Cursor="Hand"
+                                    MouseLeftButtonUp="ThemeOption_Click">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="#111827"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=DarkThemeRadio}" Value="True">
+                                                <Setter Property="BorderBrush" Value="#3B82F6"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="#3B82F6" BlurRadius="10" Opacity="0.3"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Opacity" Value="0.9"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect BlurRadius="8" Opacity="0.2"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <ikw:SimpleStackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                                    <RadioButton x:Name="DarkThemeRadio" GroupName="Theme" Visibility="Collapsed" Checked="ThemeRadio_Checked"/>
+                                    <TextBlock Text="暗色" FontSize="14" FontWeight="Medium" Foreground="#F3F4F6" HorizontalAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                        <Border Width="20" Height="20" Background="#1F2937" CornerRadius="4" BorderBrush="#374151" BorderThickness="1"/>
+                                        <Border Width="20" Height="20" Background="#374151" CornerRadius="4" BorderBrush="#4B5563" BorderThickness="1"/>
+                                        <Border Width="20" Height="20" Background="#4B5563" CornerRadius="4" BorderBrush="#6B7280" BorderThickness="1"/>
+                                    </StackPanel>
+                                </ikw:SimpleStackPanel>
+                            </Border>
+                            
+                            <!-- 跟随系统主题选项 -->
+                            <Border x:Name="SystemThemeOption" Width="150" Height="120" BorderThickness="2" BorderBrush="Transparent" CornerRadius="8" Cursor="Hand"
+                                    MouseLeftButtonUp="ThemeOption_Click">
+                                <Border.Style>
+                                    <Style TargetType="Border">
+                                        <Setter Property="Background" Value="#6C757D"/>
+                                        <Style.Triggers>
+                                            <DataTrigger Binding="{Binding IsChecked, ElementName=SystemThemeRadio}" Value="True">
+                                                <Setter Property="BorderBrush" Value="#2563EB"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect Color="#2563EB" BlurRadius="10" Opacity="0.3"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </DataTrigger>
+                                            <Trigger Property="IsMouseOver" Value="True">
+                                                <Setter Property="Opacity" Value="0.9"/>
+                                                <Setter Property="Effect">
+                                                    <Setter.Value>
+                                                        <DropShadowEffect BlurRadius="8" Opacity="0.2"/>
+                                                    </Setter.Value>
+                                                </Setter>
+                                            </Trigger>
+                                        </Style.Triggers>
+                                    </Style>
+                                </Border.Style>
+                                <ikw:SimpleStackPanel HorizontalAlignment="Center" VerticalAlignment="Center" Spacing="10">
+                                    <RadioButton x:Name="SystemThemeRadio" GroupName="Theme" Visibility="Collapsed" Checked="ThemeRadio_Checked"/>
+                                    <TextBlock Text="跟随系统" FontSize="14" FontWeight="Medium" Foreground="#FFFFFF" HorizontalAlignment="Center"/>
+                                    <StackPanel Orientation="Horizontal" Margin="0,0,0,5">
+                                        <Border Width="14" Height="20" Background="#F8F9FA" CornerRadius="4 0 0 4" BorderBrush="#E0E0E0" BorderThickness="1"/>
+                                        <Border Width="14" Height="20" Background="#111827" CornerRadius="0 4 4 0" BorderBrush="#E0E0E0" BorderThickness="1"/>
+                                    </StackPanel>
+                                </ikw:SimpleStackPanel>
+                            </Border>
+                        </StackPanel>
+                        
+                        <TextBlock x:Name="ThemeDescription" Text="当前使用亮色主题" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,20,0,0"/>
+                    </ikw:SimpleStackPanel>
+                </Border>
+            </ikw:SimpleStackPanel>
+
+            <!-- 数据库设置区域 -->
+            <ikw:SimpleStackPanel Margin="0,0,0,30">
+                <TextBlock Text="数据库设置" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+                
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                    <ikw:SimpleStackPanel>
+                        <TextBlock Text="数据库连接信息" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        
+                        <!-- 数据库服务器地址 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,15">
+                            <TextBlock Text="服务器地址" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,5"/>
+                            <TextBox x:Name="DbServerTextBox" Width="300" Height="36" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="10"
+                                     Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"/>
+                        </ikw:SimpleStackPanel>
+                        
+                        <!-- 数据库名称 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,15">
+                            <TextBlock Text="数据库名称" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,5"/>
+                            <TextBox x:Name="DbNameTextBox" Width="300" Height="36" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="10"
+                                     Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"/>
+                        </ikw:SimpleStackPanel>
+                        
+                        <!-- 用户名 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,15">
+                            <TextBlock Text="用户名" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,5"/>
+                            <TextBox x:Name="DbUsernameTextBox" Width="300" Height="36" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="10"
+                                     Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"/>
+                        </ikw:SimpleStackPanel>
+                        
+                        <!-- 密码 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,20">
+                            <TextBlock Text="密码" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,5"/>
+                            <PasswordBox x:Name="DbPasswordBox" Width="300" Height="36" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="10"
+                                         Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"/>
+                        </ikw:SimpleStackPanel>
+                        
+                        <!-- 测试连接按钮 -->
+                        <Button x:Name="TestConnectionButton" Content="测试连接" Width="120" Height="36" Background="{DynamicResource PrimaryColor}" Foreground="White" FontSize="14" Click="TestConnectionButton_Click"/>
+                        
+                        <TextBlock x:Name="ConnectionTestResult" Text="" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,10,0,0"/>
+                    </ikw:SimpleStackPanel>
+                </Border>
+            </ikw:SimpleStackPanel>
+
+            <!-- 数据库表名设置区域 -->
+            <ikw:SimpleStackPanel Margin="0,0,0,30">
+                <TextBlock Text="数据库表名设置" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+                
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                    <ikw:SimpleStackPanel>
+                        <TextBlock Text="自定义数据库表名称" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        
+                        <!-- 用户表名称 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,15">
+                            <TextBlock Text="用户表名称" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,5"/>
+                            <TextBox x:Name="UsersTableTextBox" Width="300" Height="36" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="10"
+                                     Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"/>
+                        </ikw:SimpleStackPanel>
+                        
+                        <!-- 成就分类表名称 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,15">
+                            <TextBlock Text="成就分类表名称" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,5"/>
+                            <TextBox x:Name="CategoriesTableTextBox" Width="300" Height="36" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="10"
+                                     Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"/>
+                        </ikw:SimpleStackPanel>
+                        
+                        <!-- 成就表名称 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,15">
+                            <TextBlock Text="成就表名称" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,5"/>
+                            <TextBox x:Name="AchievementsTableTextBox" Width="300" Height="36" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="10"
+                                     Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"/>
+                        </ikw:SimpleStackPanel>
+                        
+                        <TextBlock Text="默认表名：users、achievement_categories、achievements" FontSize="11" Foreground="{DynamicResource TextSecondary}" Margin="0,5,0,0"/>
+                    </ikw:SimpleStackPanel>
+                </Border>
+            </ikw:SimpleStackPanel>
+
+            <!-- 页面显示设置区域 -->
+            <ikw:SimpleStackPanel Margin="0,0,0,30">
+                <TextBlock Text="页面显示设置" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+                
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                    <ikw:SimpleStackPanel>
+                        <TextBlock Text="自定义页面每次加载的成就数量" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        
+                        <!-- 页面显示数量 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,20">
+                            <TextBlock Text="成就加载数量（数量越多，程序可能越卡顿）" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,8"/>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button x:Name="PageSizeDecreaseBtn" Width="30" Height="30" Background="{DynamicResource BorderColor}" Foreground="{DynamicResource TextForeground}" Click="PageSizeDecreaseBtn_Click">
+                                    <TextBlock Text="↓" FontSize="14" FontWeight="Bold"/>
+                                </Button>
+                                <Slider x:Name="PageSizeSlider" Width="200" Minimum="16" Maximum="54" Value="20" TickFrequency="2" IsSnapToTickEnabled="True" Margin="10,0" ValueChanged="PageSizeSlider_ValueChanged"/>
+                                <Button x:Name="PageSizeIncreaseBtn" Width="30" Height="30" Background="{DynamicResource BorderColor}" Foreground="{DynamicResource TextForeground}" Click="PageSizeIncreaseBtn_Click">
+                                    <TextBlock Text="↑" FontSize="14" FontWeight="Bold"/>
+                                </Button>
+                                <TextBlock x:Name="PageSizeValueText" Text="20项" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="10,6,0,0" Width="50" TextAlignment="Right"/>
+                            </StackPanel>
+                            <TextBlock Text="范围：16-54项" FontSize="11" Foreground="{DynamicResource TextSecondary}" Margin="0,5,0,0"/>
+                        </ikw:SimpleStackPanel>
+                    </ikw:SimpleStackPanel>
+                </Border>
+            </ikw:SimpleStackPanel>
+
+            <!-- 动画速度设置区域 -->
+            <ikw:SimpleStackPanel Margin="0,0,0,30">
+                <TextBlock Text="动画速度设置" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+                
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                    <ikw:SimpleStackPanel>
+                        <TextBlock Text="庆典成就卡片动画速度" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        
+                        <!-- 生日成就动画速度 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,20">
+                            <TextBlock Text="生日成就动画速度" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,8"/>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button x:Name="BirthdaySpeedDecreaseBtn" Width="30" Height="30" Background="{DynamicResource BorderColor}" Foreground="{DynamicResource TextForeground}" Click="BirthdaySpeedDecreaseBtn_Click">
+                                    <TextBlock Text="↓" FontSize="14" FontWeight="Bold"/>
+                                </Button>
+                                <Slider x:Name="BirthdaySpeedSlider" Width="200" Minimum="30" Maximum="120" Value="90" TickFrequency="10" IsSnapToTickEnabled="True" Margin="10,0" ValueChanged="BirthdaySpeedSlider_ValueChanged"/>
+                                <Button x:Name="BirthdaySpeedIncreaseBtn" Width="30" Height="30" Background="{DynamicResource BorderColor}" Foreground="{DynamicResource TextForeground}" Click="BirthdaySpeedIncreaseBtn_Click">
+                                    <TextBlock Text="↑" FontSize="14" FontWeight="Bold"/>
+                                </Button>
+                                <TextBlock x:Name="BirthdaySpeedValueText" Text="90秒" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="10,6,0,0" Width="50" TextAlignment="Right"/>
+                            </StackPanel>
+                        </ikw:SimpleStackPanel>
+                        
+                        <!-- 周年成就动画速度 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,10">
+                            <TextBlock Text="周年成就动画速度" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,8"/>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <Button x:Name="AnniversarySpeedDecreaseBtn" Width="30" Height="30" Background="{DynamicResource BorderColor}" Foreground="{DynamicResource TextForeground}" Click="AnniversarySpeedDecreaseBtn_Click">
+                                    <TextBlock Text="↓" FontSize="14" FontWeight="Bold"/>
+                                </Button>
+                                <Slider x:Name="AnniversarySpeedSlider" Width="200" Minimum="30" Maximum="120" Value="90" TickFrequency="10" IsSnapToTickEnabled="True" Margin="10,0" ValueChanged="AnniversarySpeedSlider_ValueChanged"/>
+                                <Button x:Name="AnniversarySpeedIncreaseBtn" Width="30" Height="30" Background="{DynamicResource BorderColor}" Foreground="{DynamicResource TextForeground}" Click="AnniversarySpeedIncreaseBtn_Click">
+                                    <TextBlock Text="↑" FontSize="14" FontWeight="Bold"/>
+                                </Button>
+                                <TextBlock x:Name="AnniversarySpeedValueText" Text="90秒" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="10,6,0,0" Width="50" TextAlignment="Right"/>
+                            </StackPanel>
+                        </ikw:SimpleStackPanel>
+                    </ikw:SimpleStackPanel>
+                </Border>
+            </ikw:SimpleStackPanel>
+            
+            <!-- 成就图片路径设置区域 -->
+            <ikw:SimpleStackPanel Margin="0,0,0,30">
+                <TextBlock Text="成就图片路径设置" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+                
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                    <ikw:SimpleStackPanel>
+                        <TextBlock Text="设置成就图片的保存路径" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        
+                        <!-- 成就图片路径 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,10">
+                            <TextBlock Text="成就图片路径" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,8"/>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBox x:Name="AchievementsImagePathTextBox" Width="300" Height="36" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="10"
+                                         Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}" Margin="0,0,10,0"/>
+                                <Button x:Name="BrowseImagePathBtn" Content="浏览..." Padding="10,5" Background="{DynamicResource PrimaryColor}" Foreground="White" FontSize="12" Click="BrowseImagePathBtn_Click"/>
+                            </StackPanel>
+                            <TextBlock Text="默认路径：程序运行目录\Resources\AsImages" FontSize="11" Foreground="{DynamicResource TextSecondary}" Margin="0,5,0,0"/>
+                        </ikw:SimpleStackPanel>
+                    </ikw:SimpleStackPanel>
+                </Border>
+            </ikw:SimpleStackPanel>
+
+            <!-- ADB工具路径设置区域 -->
+            <ikw:SimpleStackPanel Margin="0,0,0,30">
+                <TextBlock Text="ADB工具路径设置" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+                
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                    <ikw:SimpleStackPanel>
+                        <TextBlock Text="设置ADB工具的路径" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        
+                        <!-- ADB工具路径 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,10">
+                            <TextBlock Text="ADB工具路径" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,8"/>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                <TextBox x:Name="AdbToolPathTextBox" Width="300" Height="36" BorderBrush="{DynamicResource BorderColor}" BorderThickness="1" Padding="10"
+                                         Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}" Margin="0,0,10,0"/>
+                                <Button x:Name="BrowseAdbPathBtn" Content="浏览..." Padding="10,5" Background="{DynamicResource PrimaryColor}" Foreground="White" FontSize="12" Click="BrowseAdbPathBtn_Click"/>
+                            </StackPanel>
+                            <TextBlock Text="默认路径：程序运行目录\Resources" FontSize="11" Foreground="{DynamicResource TextSecondary}" Margin="0,5,0,0"/>
+                        </ikw:SimpleStackPanel>
+                    </ikw:SimpleStackPanel>
+                </Border>
+            </ikw:SimpleStackPanel>
+
+            <!-- 人脸识别设备设置区域 -->
+            <ikw:SimpleStackPanel Margin="0,0,0,30">
+                <TextBlock Text="人脸识别设备设置" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+                
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                    <ikw:SimpleStackPanel>
+                        <TextBlock Text="设置人脸识别设备的优先级" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,15"/>
+                        
+                        <!-- 人脸识别设备优先级 -->
+                        <ikw:SimpleStackPanel Margin="0,0,0,10">
+                            <TextBlock Text="设备优先级" FontSize="12" Foreground="{DynamicResource TextSecondary}" Margin="0,0,0,8"/>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <RadioButton x:Name="MobileCameraRadio" GroupName="CameraPriority" Content="优先使用移动端摄像头 (ADB)" Margin="0,0,0,10" Checked="CameraPriorityRadio_Checked" Foreground="{DynamicResource TextForeground}"/>
+                                <RadioButton x:Name="LocalCameraRadio" GroupName="CameraPriority" Content="优先使用本地相机" Margin="0,0,0,10" Checked="CameraPriorityRadio_Checked" Foreground="{DynamicResource TextForeground}"/>
+                            </StackPanel>
+                            <TextBlock Text="默认设置：优先使用移动端摄像头 (ADB)" FontSize="11" Foreground="{DynamicResource TextSecondary}" Margin="0,5,0,0"/>
+                        </ikw:SimpleStackPanel>
+                    </ikw:SimpleStackPanel>
+                </Border>
+            </ikw:SimpleStackPanel>
+
+            <!-- 其他设置区域（预留） -->
+            <ikw:SimpleStackPanel Margin="0,0,0,30">
+                <TextBlock Text="其他设置" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+                
+                <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                    <ikw:SimpleStackPanel>
+                        <TextBlock Text="功能开发中..." FontSize="14" Foreground="{DynamicResource TextSecondary}"/>
+                    </ikw:SimpleStackPanel>
+                </Border>
+            </ikw:SimpleStackPanel>
+
+            <!-- 应用按钮 -->
+            <Button x:Name="ApplyButton" Content="应用设置" Padding="15,8" Background="{DynamicResource PrimaryColor}" Foreground="White" FontSize="14" HorizontalAlignment="Left" Click="ApplyButton_Click"/>
+        </ikw:SimpleStackPanel>
+    </ui:ScrollViewerEx>
+</Page>

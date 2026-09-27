@@ -1,0 +1,155 @@
+<Page x:Class="成就系统.UI.Main.HelpPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:成就系统.UI.Main"
+      xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      
+      mc:Ignorable="d" 
+      d:DesignHeight="777" d:DesignWidth="999"
+      Title="HelpPage" Background="#8087CEEB">
+
+    <Grid>
+        <!-- 主内容区域 -->
+        <ui:ScrollViewerEx VerticalScrollBarVisibility="Auto" Padding="20">
+            <ikw:SimpleStackPanel>
+                <!-- 标题区域 -->
+                <ikw:SimpleStackPanel Margin="0,0,0,30">
+                    <TextBlock Text="帮助中心" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextForeground}"/>
+                    <TextBlock Text="常见问题解答" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,8,0,0"/>
+
+                </ikw:SimpleStackPanel>
+
+                <!-- 账户问题分类 -->
+                <ikw:SimpleStackPanel Margin="0,0,0,25">
+                    <TextBlock Text="账户" Style="{StaticResource SectionTitleStyle}"/>
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="如何注册人脸？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                在登录页面注册账户时选择摄像头或者图片进行注册，也可以在账户设置页面更新人脸数据。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="如何修改密码？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                在登录页面输入您的用户名和新密码，点击"忘记密码"，人脸验证成功后修改，也可以在账户设置页面更新新密码。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="如何注销账户？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                进入账户设置界面，点击"注销账户"，人脸验证成功后进行注销。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                </ikw:SimpleStackPanel>
+
+                <!-- 成就问题分类 -->
+                <ikw:SimpleStackPanel Margin="0,0,0,25">
+                    <TextBlock Text="成就" Style="{StaticResource SectionTitleStyle}"/>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="如何添加成就？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                在主页点击"添加成就"按钮，填写成就信息后添加，也可以在控制台页面通过模板批量导入。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="如何排序成就？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                在主页根据自身需要点击对应的排序按钮即可，目前支持名称、评分、完成度、日期排序。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="如何分类成就？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                成就按大类以及归属的小类来确定类别，而大类/小类的界定则由用户自行定义，理论上万事万物皆可分类。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="如何分享成就？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                在主页点击"打印"悬浮按钮，保存成就为PDF/PNG格式后通过第三方平台进行分享。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                </ikw:SimpleStackPanel>
+
+                <!-- 系统设置分类 -->
+                <ikw:SimpleStackPanel Margin="0,0,0,25">
+                    <TextBlock Text="系统" Style="{StaticResource SectionTitleStyle}"/>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="如何更改主题？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                前往设置，选择您喜欢的颜色方案后应用，目前支持亮色主题、暗色主题和跟随系统。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="庆典速度过快？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                建议在设置页面单独调节生日成就和周年成就的动画速度。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="图片路径作用？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                成就卡片加载时会优先使用该路径的成就图片，路径可自定义，使用自定义成就图时，请放置在此路径，且名称和成就名需一致。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="ADB的功能？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                在优先使用ADB工具的情况下，应用会优先使用ADB连接移动设备进行所有人脸相关的操作，例如注册、人脸快捷登录、忘记密码、注销账户等。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource QuestionContainerStyle}">
+                        <ikw:SimpleStackPanel>
+                            <TextBlock Text="首次运行程序？" Style="{StaticResource QuestionStyle}"/>
+                            <TextBlock Style="{StaticResource AnswerStyle}">
+                                首次登录失败，可以尝试使用账户名：KunKun，密码：Opendata@110进行登录。
+                            </TextBlock>
+                        </ikw:SimpleStackPanel>
+                    </Border>
+
+                </ikw:SimpleStackPanel>
+
+            </ikw:SimpleStackPanel>
+        </ui:ScrollViewerEx>
+    </Grid>
+    
+    
+</Page>

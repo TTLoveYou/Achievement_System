@@ -1,0 +1,306 @@
+<Page x:Class="成就系统.UI.Main.HomePage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:成就系统.UI.Main"
+      xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      xmlns:converters="clr-namespace:成就系统.Utilities"
+      
+      mc:Ignorable="d"
+      Title="HomePage"
+      d:DesignHeight="777" d:DesignWidth="999"
+      Background="Transparent">
+
+
+    <Grid Margin="5,5,5,5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0" VerticalAlignment="Center" Margin="40,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="560"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <ikw:SimpleStackPanel x:Name="Sort" Orientation="Horizontal" Spacing="10" Grid.Column="0">
+
+                <!-- 名称排序按钮 -->
+                <Button x:Name="SortByNameButton" 
+                    Tag="Name"
+                    Click="SortButton_Click"
+                    Width="130" Height="30" Content="名称"
+                    Style="{StaticResource SortButtonStyle}">
+                </Button>
+
+                <!-- 评分排序按钮 -->
+                <Button x:Name="SortByRatingButton" 
+                Tag="Rating"
+                Click="SortButton_Click"
+                Width="130" Height="30" Content="评分"
+                Style="{StaticResource SortButtonStyle}">
+                </Button>
+
+                <!-- 完成度排序按钮 -->
+                <Button x:Name="SortByProgressButton" 
+                    Tag="Progress"
+                    Click="SortButton_Click"
+                    Width="130" Height="30" Content="完成度"
+                    Style="{StaticResource SortButtonStyle}">
+                </Button>
+
+                <!-- 日期排序按钮 -->
+                <Button x:Name="SortByDateButton"
+                        Tag="Date"
+                        Click="SortButton_Click"
+                        Width="130" Height="30" Content="日期"
+                        Style="{StaticResource SortButtonStyle}">
+                </Button>
+
+            </ikw:SimpleStackPanel>
+
+            <!-- 搜索功能区 -->
+            <Grid Grid.Column="1">
+                <ui:AutoSuggestBox x:Name="SearchBox"
+                                  PlaceholderText="搜索成就..."
+                                  QueryIcon="搜索"
+                                  VerticalAlignment="Center"
+                                  Margin="60,0,20,0"
+                                  QuerySubmitted="SearchBox_QuerySubmitted">
+                    <ui:AutoSuggestBox.Resources>
+                        <Style TargetType="ui:AutoSuggestBox">
+                            <Setter Property="CornerRadius" Value="4"/>
+                        </Style>
+                    </ui:AutoSuggestBox.Resources>
+                </ui:AutoSuggestBox>
+            </Grid>
+        </Grid>
+
+        <!--类别选择区-->
+        <Grid Grid.Row="1" VerticalAlignment="Center" Margin="40,0,0,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="150"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid Grid.Column="0">
+                <ComboBox x:Name="A_category"
+                    ui:ControlHelper.Header="A类"
+                    ui:ControlHelper.PlaceholderText="默认"
+                    Width="130">
+
+                </ComboBox>
+            </Grid>
+            <!--B类装载区-->
+            <ikw:SimpleStackPanel Grid.Column="1" x:Name="B_category" HorizontalAlignment="Center" Orientation="Horizontal" Spacing="10">
+
+
+            </ikw:SimpleStackPanel>
+        </Grid>
+
+        <!-- 成就卡片展示区 -->
+        <Grid Grid.Row="2">
+            <ui:ScrollViewerEx x:Name="AchievementScrollViewer" VerticalScrollBarVisibility="Auto" Margin="10" ScrollChanged="AchievementScrollViewer_ScrollChanged">
+                <ItemsControl x:Name="AchievementsContainer" 
+                          ItemsSource="{Binding}"
+                          ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <!--定义布局面板-->
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <!-- 使用WrapPanel保持水平排列，结合ScrollViewer的虚拟滚动 -->
+                            <WrapPanel Orientation="Horizontal" 
+                           HorizontalAlignment="Stretch"
+                           ItemWidth="216" 
+                           ItemHeight="280"
+                           Background="SkyBlue"/>
+
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <!--定义每个卡片的UI模板-->
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <Border Background="White"
+                                CornerRadius="20"
+                                Width="196"
+                                Height="260"
+                                Margin="10"
+                                Effect="{StaticResource CardShadowEffect}"
+                                BorderBrush="#E0E0E0"
+                                BorderThickness="1">
+
+
+                                <!-- 添加上下文菜单 -->
+                                <Border.ContextMenu>
+                                    <ContextMenu>
+                                        <MenuItem Header="打开图片位置" Click="OpenImageLocation_Click"/>
+                                        <MenuItem Header="设为默认图片" Click="SetAsDefaultImage_Click"/>
+                                        <Separator/>
+                                        <MenuItem Header="删除成就" Click="DeleteAchievement_Click"/>
+                                    </ContextMenu>
+                                </Border.ContextMenu>
+
+                                <!--卡片内部网格布局 图片区、文本区、底部状态区-->
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="200"/>
+                                            <!--图片-->
+                                            <RowDefinition Height="30"/>
+                                            <!--名称-->
+                                            <RowDefinition Height="*"/>
+                                            <!--状态栏-->
+                                        </Grid.RowDefinitions>
+
+                                        <!-- 图片区域 - 使用转换器 -->
+                                        <Border Grid.Row="0" Background="#F5F5F5" ClipToBounds="True" CornerRadius="0" Margin="20,0,20,0">
+                                            <!--显示成就图片-->
+                                            <Image Stretch="UniformToFill"
+                                                   VerticalAlignment="Center"
+                                                   HorizontalAlignment="Center">
+                                                <Image.Source>
+                                                    <Binding Path="ImagePath">
+                                                        <Binding.Converter>
+                                                            <converters:ImagePathConverter/>
+                                                        </Binding.Converter>
+                                                    </Binding>
+                                                </Image.Source>
+
+                                                <!-- 鼠标悬停提示 可以使用 ToolTipService.ToolTip-->
+                                                <Image.ToolTip>
+                                                    <ToolTip Placement="Mouse" 
+                                                      HorizontalOffset="10"
+                                                      VerticalOffset="10"
+                                                      Style="{StaticResource CustomToolTipStyle}">
+                                                        <ikw:SimpleStackPanel>
+                                                            <TextBlock Text="{Binding AchievementName}" 
+                                                               FontWeight="Bold" 
+                                                               FontSize="14"
+                                                               Margin="0,0,0,5"/>
+                                                            <TextBlock Text="{Binding Description}" 
+                                                               FontSize="12"
+                                                               TextWrapping="Wrap"
+                                                               MaxWidth="300"/>
+                                                        </ikw:SimpleStackPanel>
+                                                    </ToolTip>
+                                                </Image.ToolTip>
+
+
+                                            </Image>
+                                        </Border>
+
+                                        <!-- 名称区域 -->
+                                        <Grid Grid.Row="1" Margin="0,5,0,0">
+                                            <Button x:Name="AchievementNameButton" 
+                                            Content="{Binding AchievementName}" 
+                                            Style="{StaticResource AchievementNameButtonStyle}"
+                                            HorizontalAlignment="Center"
+                                            Click="AchievementNameButton_Click"/>
+                                        </Grid>
+
+                                        <!-- 底部状态栏 -->
+                                        <Border Grid.Row="2" Background="#F0F0F0" 
+                                        CornerRadius="0,0,20,20" 
+                                        Padding="10,0" Margin="0,0,0,0">
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="*"/>
+                                                </Grid.ColumnDefinitions>
+                                                <!-- 评分等级  -->
+                                                <Grid Grid.Column="0" Margin="20,0,0,0">
+                                                    <!-- 描边层 -->
+                                                    <TextBlock 
+                                                        Style="{StaticResource StrokedTextStyle}"
+                                                        Text="{Binding Score, Converter={StaticResource ScoreToGradeConverter}}"
+                                                        Foreground="Black"/>
+                                                    <!-- 描边颜色 -->
+
+                                                    <!-- 前景层 -->
+                                                    <TextBlock 
+                                                        Style="{StaticResource StrokedTextStyle}"
+                                                        Text="{Binding Score, Converter={StaticResource ScoreToGradeConverter}}"
+                                                        Foreground="{Binding Score, Converter={StaticResource ScoreToGradeColorConverter}}"/>
+
+                                                </Grid>
+
+
+                                                <!--完成程度-->
+                                                <Grid Grid.Column="1" Margin="10,0,0,0" VerticalAlignment="Center">
+                                                    <Grid.RowDefinitions>
+                                                        <RowDefinition Height="*"/>
+                                                        <RowDefinition Height="*"/>
+                                                    </Grid.RowDefinitions>
+
+                                                    <TextBlock Grid.Row="0"
+                                                           Text="{Binding CompletionDegree, Converter={StaticResource DegreeConverterStyle}}"
+                                                           Foreground="{Binding CompletionDegree, Converter={StaticResource DegreeConverterColor}}"
+                                                           Style="{StaticResource StrokedTextStyle}"
+                                                           FontSize="16" HorizontalAlignment="Right"
+                                                           FontWeight="SemiBold"/>
+
+                                                    <ProgressBar Grid.Row="1"
+                                                            Value="{Binding CompletionDegree, Converter={StaticResource DegreeConverterStyle}, ConverterParameter=Value}"
+                                                            Foreground="{Binding CompletionDegree, Converter={StaticResource DegreeConverterColor}}"
+                                                            Background="Black"
+                                                            Maximum="100"/>
+
+                                                </Grid>
+                                            </Grid>
+                                        </Border>
+
+                                    </Grid>
+
+
+
+                            </Border>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
+            </ui:ScrollViewerEx>
+
+            <!-- 无成就提示区域 -->
+            <Grid x:Name="NoAchievementsPanel" 
+                  Visibility="Collapsed"
+                  VerticalAlignment="Center"
+                  HorizontalAlignment="Center">
+                <TextBlock x:Name="NoAchievementsText"
+                   Text="该类别下暂无成就"
+                   FontSize="18"
+                   Foreground="Gray" FontWeight="Bold"/>
+            </Grid>
+
+            <!-- 添加成就的悬浮按钮 - 仅在HomePage显示 -->
+            <Button x:Name="AddAchievementButton" 
+                Width="56" Height="56" Click="AddAchievementButton_Click"
+                HorizontalAlignment="Right" VerticalAlignment="Bottom"
+                Margin="20,20,40,40"
+                Style="{StaticResource FloatingActionButtonStyle}"
+                ToolTip="添加成就">
+                <Grid>
+                    <!-- 加号图标 -->
+                    <Rectangle Width="24" Height="4" Fill="White" RadiusX="2" RadiusY="2"/>
+                    <Rectangle Width="4" Height="24" Fill="White" RadiusX="2" RadiusY="2"/>
+                </Grid>
+            </Button>
+            
+            <!-- 打印成就的悬浮按钮 -->
+            <Button x:Name="PrintAchievementButton" 
+                Width="56" Height="56" Click="PrintAchievementButton_Click"
+                HorizontalAlignment="Left" VerticalAlignment="Bottom"
+                Margin="40,20,20,40"
+                Style="{StaticResource FloatingActionButtonStyle}"
+                ToolTip="打印成就">
+                <Grid>
+                    <!-- 打印图标 -->
+                    <Path Data="M18,5V1h-2v4H8V1H6v4H5C3.9,5,3,5.9,3,7v11c0,1.1,0.9,2,2,2h14c1.1,0,2-0.9,2-2V7C21,5.9,20.1,5,19,5H18z M8,18H6v-2h2V18z M8,14H6v-2h2V14z M15,18h-2v-2h2V18z M15,14h-2v-2h2V14z M18,11H6V9h12V11z" 
+                          Fill="White" Width="24" Height="24"/>
+                </Grid>
+            </Button>
+
+        </Grid>
+
+
+    </Grid>
+</Page>

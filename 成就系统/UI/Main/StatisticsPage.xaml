@@ -1,0 +1,157 @@
+<Page x:Class="成就系统.UI.Main.StatisticsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:成就系统.UI.Main"
+      xmlns:ikw="http://schemas.inkore.net/lib/ui/wpf"
+      xmlns:ui="http://schemas.inkore.net/lib/ui/wpf/modern"
+      mc:Ignorable="d"
+      Title="StatisticsPage"
+      d:DesignHeight="777" d:DesignWidth="999"
+      Background="{DynamicResource ApplicationBackground}">
+
+    <Page.Resources>
+        <local:AddConverter x:Key="AddConverter"/>
+    </Page.Resources>
+
+    <Grid>
+        <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+            <ikw:SimpleStackPanel Margin="20">
+                <!-- 页面标题 -->
+                <ikw:SimpleStackPanel Margin="0,0,0,30">
+                    <TextBlock Text="统计站" FontSize="28" FontWeight="Bold" Foreground="{DynamicResource TextForeground}"/>
+                    <TextBlock Text="统计和分析你的成就数据" FontSize="14" Foreground="{DynamicResource TextSecondary}" Margin="0,5,0,0"/>
+                </ikw:SimpleStackPanel>
+
+                <!-- 统计类别选择按钮 -->
+                <ikw:SimpleStackPanel Margin="0,0,0,30">
+                    <TextBlock Text="统计类别" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+                    
+                    <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Margin="0,0,0,10">
+                            <!-- 种类统计按钮 -->
+                            <Button x:Name="CategoryStatsBtn" Content="种类" Width="100" Height="40" Margin="0,0,10,0"
+                                    Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"
+                                    BorderBrush="{DynamicResource BorderColor}" BorderThickness="1"
+                                    Click="CategoryStatsBtn_Click"/>
+                            
+                            <!-- 评分统计按钮 -->
+                            <Button x:Name="ScoreStatsBtn" Content="评分" Width="100" Height="40" Margin="0,0,10,0"
+                                    Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"
+                                    BorderBrush="{DynamicResource BorderColor}" BorderThickness="1"
+                                    Click="ScoreStatsBtn_Click"/>
+                            
+                            <!-- 完成度统计按钮 -->
+                            <Button x:Name="CompletionStatsBtn" Content="完成度" Width="100" Height="40" Margin="0,0,10,0"
+                                    Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"
+                                    BorderBrush="{DynamicResource BorderColor}" BorderThickness="1"
+                                    Click="CompletionStatsBtn_Click"/>
+                            
+                            <!-- 日期统计按钮 -->
+                            <Button x:Name="DateStatsBtn" Content="日期" Width="100" Height="40"
+                                    Background="{DynamicResource CardBackground}" Foreground="{DynamicResource TextForeground}"
+                                    BorderBrush="{DynamicResource BorderColor}" BorderThickness="1"
+                                    Click="DateStatsBtn_Click"/>
+                        </StackPanel>
+                    </Border>
+                </ikw:SimpleStackPanel>
+
+                <!-- 统计图表区域 -->
+                <ikw:SimpleStackPanel Margin="0,0,0,30">
+                    <TextBlock Text="统计结果" FontSize="18" FontWeight="SemiBold" Foreground="{DynamicResource TextForeground}" Margin="0,0,0,15"/>
+                    
+                    <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="20" Effect="{StaticResource CardShadowEffect}">
+                        <Grid x:Name="ChartContainer" Height="400" MinWidth="800" Width="Auto">
+                            <!-- 图表标题 -->
+                            <TextBlock x:Name="ChartTitle" Text="成就统计" FontSize="16" FontWeight="Bold" 
+                                       HorizontalAlignment="Left" VerticalAlignment="Top" Margin="30,10,0,0" 
+                                       Foreground="{DynamicResource TextForeground}"/>
+                            
+                            <!-- 条形图 -->
+                            <ItemsControl x:Name="BarChart" 
+                                         Height="320" MinWidth="780" Width="Auto" Margin="50,40,10,10"
+                                         HorizontalAlignment="Left" VerticalAlignment="Top">
+                                <ItemsControl.ItemsPanel>
+                                    <ItemsPanelTemplate>
+                                        <Canvas Background="Transparent"/>
+                                    </ItemsPanelTemplate>
+                                </ItemsControl.ItemsPanel>
+                                <ItemsControl.ItemContainerStyle>
+                                    <Style TargetType="ContentPresenter">
+                                        <Setter Property="Canvas.Left" Value="{Binding XPosition}"/>
+                                        <Setter Property="Canvas.Top" Value="0"/>
+                                    </Style>
+                                </ItemsControl.ItemContainerStyle>
+                                <ItemsControl.ItemTemplate>
+                                    <DataTemplate>
+                                        <Canvas Width="40" Height="300">
+                                            <!-- 条形 -->
+                                            <Rectangle Width="40" Height="{Binding BarHeight}" 
+                                                       Fill="{Binding Color}" 
+                                                       Stroke="{Binding Color}" 
+                                                       StrokeThickness="1"
+                                                       Canvas.Left="0" 
+                                                       Canvas.Bottom="40"/>
+                                            <!-- 标签 -->
+                                            <TextBlock Text="{Binding Label}" 
+                                                       FontSize="12" 
+                                                       Foreground="{DynamicResource TextForeground}"
+                                                       Canvas.Left="0" 
+                                                       Canvas.Bottom="10" 
+                                                       Width="40" 
+                                                       TextAlignment="Center" 
+                                                       TextWrapping="Wrap"/>
+                                            <!-- 值 -->
+                                            <TextBlock Text="{Binding Value}" 
+                                                       FontSize="12" 
+                                                       Foreground="{DynamicResource TextForeground}"
+                                                       Canvas.Left="0" 
+                                                       Canvas.Bottom="{Binding BarHeight, Converter={StaticResource AddConverter}, ConverterParameter=50}" 
+                                                       Width="40" 
+                                                       TextAlignment="Center"/>
+                                        </Canvas>
+                                    </DataTemplate>
+                                </ItemsControl.ItemTemplate>
+                            </ItemsControl>
+                            
+                            <!-- Y轴 -->
+                            <Line X1="40" Y1="40" X2="40" Y2="360" 
+                                  Stroke="{DynamicResource BorderColor}" StrokeThickness="2"/>
+                            <!-- X轴 -->
+                            <Line x:Name="XAxisLine" X1="40" Y1="360" X2="960" Y2="360" 
+                                  Stroke="{DynamicResource BorderColor}" StrokeThickness="2"/>
+                            
+                            <!-- Y轴标题 -->
+                            <TextBlock Text="数量" FontSize="12" FontWeight="SemiBold" 
+                                       Foreground="{DynamicResource TextForeground}"
+                                       HorizontalAlignment="Left" VerticalAlignment="Center" 
+                                       Margin="10,0,0,0" RenderTransformOrigin="0.5,0.5">
+                                <TextBlock.RenderTransform>
+                                    <RotateTransform Angle="-90"/>
+                                </TextBlock.RenderTransform>
+                            </TextBlock>
+                            <!-- X轴标题 -->
+                            <TextBlock Text="类别" FontSize="12" FontWeight="SemiBold" 
+                                       Foreground="{DynamicResource TextForeground}"
+                                       HorizontalAlignment="Center" VerticalAlignment="Bottom" 
+                                       Margin="0,0,0,10"/>
+                        </Grid>
+                    </Border>
+                </ikw:SimpleStackPanel>
+                
+                <!-- 用户问候语区域 -->
+                <ikw:SimpleStackPanel Margin="0,0,0,30">
+                    <Border Background="{DynamicResource CardBackground}" CornerRadius="8" Padding="40" Effect="{StaticResource CardShadowEffect}">
+                        <TextBlock x:Name="GreetingText" 
+                                   FontSize="24" 
+                                   FontWeight="Bold" 
+                                   Foreground="{DynamicResource PrimaryColor}"
+                                   TextAlignment="Center"
+                                   TextWrapping="Wrap"/>
+                    </Border>
+                </ikw:SimpleStackPanel>
+            </ikw:SimpleStackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>
